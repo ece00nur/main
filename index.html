@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>♥</title>
+  <!-- Kalp Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23e298a8%22><path d=%22M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z%22/></svg>">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #f6d5de;
+      /* Yumuşak toz pembe tonlarında zarif geçiş */
+      background: radial-gradient(circle at 50% 50%, #fbe8ee 0%, #f6d5de 55%, #edbfcc 100%);
+      cursor: default;
+    }
+
+    /* Arka plan sabit zarif kalp deseni */
+    .pattern-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path fill="%23df8fa1" d="M30,39.5 L28.2,37.8 C21,31.2 16,26.6 16,21 C16,16.5 19.5,13 24,13 C26.5,13 28.9,14.2 30,16 C31.1,14.2 33.5,13 36,13 C40.5,13 44,16.5 44,21 C44,26.6 39,31.2 31.8,37.8 L30,39.5 Z"/></svg>');
+      background-size: 60px 60px;
+    }
+
+    /* Uçuşan kalpler konteyneri */
+    #hearts-container {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -60px;
+      pointer-events: none;
+      animation: floatUp linear forwards;
+      filter: drop-shadow(0 2px 4px rgba(220, 140, 160, 0.15));
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(0.8) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: var(--target-opacity, 0.7);
+      }
+      85% {
+        opacity: var(--target-opacity, 0.7);
+      }
+      100% {
+        transform: translateY(-115vh) scale(1.1) rotate(var(--rot, 25deg));
+        opacity: 0;
+      }
+    }
+
+    /* Tıklama veya dokunma ile beliren kalp efekti */
+    .click-heart {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0);
+      animation: popAndFade 1.2s ease-out forwards;
+    }
+
+    @keyframes popAndFade {
+      0% {
+        transform: translate(-50%, -50%) scale(0.3);
+        opacity: 0.9;
+      }
+      50% {
+        transform: translate(-50%, -80px) scale(1.2);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(-50%, -130px) scale(1.4);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="pattern-overlay"></div>
+  <div id="hearts-container"></div>
+
+  <script>
+    const container = document.getElementById('hearts-container');
+
+    // Toz pembe kalp tonları paleti
+    const colors = [
+      '#e89fb1',
+      '#f0aec0',
+      '#df8fa2',
+      '#f5c5d2',
+      '#dba0b1',
+      '#ecc0cd'
+    ];
+
+    function createHeartSvg(color, size) {
+      return `
+        <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="${color}">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      `;
+    }
+
+    function spawnHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+
+      const size = Math.random() * 24 + 14; // 14px - 38px
+      const left = Math.random() * 100; // 0% - 100%
+      const duration = Math.random() * 7 + 7; // 7s - 14s
+      const rotation = (Math.random() - 0.5) * 50; // -25deg ile +25deg
+      const opacity = Math.random() * 0.45 + 0.35; // 0.35 - 0.80
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      heart.style.left = `${left}%`;
+      heart.style.animationDuration = `${duration}s`;
+      heart.style.setProperty('--rot', `${rotation}deg`);
+      heart.style.setProperty('--target-opacity', opacity);
+      heart.innerHTML = createHeartSvg(color, size);
+
+      container.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+
+    // İlk açılışta ekranı zenginleştirmek için başlangıç kalpleri
+    for (let i = 0; i < 15; i++) {
+      setTimeout(spawnHeart, Math.random() * 3000);
+    }
+
+    // Düzenli aralıklarla yeni kalpler uçur
+    setInterval(spawnHeart, 600);
+
+    // Ekrana tıklandığında veya dokunulduğunda tatlı bir kalp çıkart
+    function createClickHeart(x, y) {
+      const clickHeart = document.createElement('div');
+      clickHeart.className = 'click-heart';
+      clickHeart.style.left = `${x}px`;
+      clickHeart.style.top = `${y}px`;
+
+      const size = Math.random() * 14 + 22; // 22px - 36px
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      clickHeart.innerHTML = createHeartSvg(color, size);
+
+      document.body.appendChild(clickHeart);
+
+      setTimeout(() => {
+        clickHeart.remove();
+      }, 1200);
+    }
+
+    window.addEventListener('click', (e) => {
+      createClickHeart(e.clientX, e.clientY);
+    });
+
+    window.addEventListener('touchstart', (e) => {
+      for (let i = 0; i < e.touches.length; i++) {
+        createClickHeart(e.touches[i].clientX, e.touches[i].clientY);
+      }
+    }, { passive: true });
+  </script>
+</body>
+</html>
