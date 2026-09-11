@@ -1,0 +1,42 @@
+rules_version = '2';
+
+// Paste this into Firebase Console -> Firestore Database -> Rules -> Publish.
+// See README.md "Leaderboard Setup" for the full walkthrough.
+//
+// Design notes / known limitation:
+// This game has no login and no server, so there is no way to cryptographically
+// prove a submitted score came from a real playthrough. These rules only
+// constrain the *shape* and *range* of a write (right fields, right types,
+// sane score ceiling, capped nickname length) and make every leaderboard
+// document permanently read-only/undeletable once created. A determined
+// player could still open devtools and write a spoofed (but in-range) score
+// directly to Firestore. Closing that gap fully requires server-side run
+// validation (e.g. a Cloud Function that replays/verifies the run) plus
+// Firebase App Check, which is a larger, ongoing-cost addition -- add it
+// later if leaderboard integrity becomes a real problem.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /leaderboard/{scoreId} {
+      allow read: if true;
+
+      allow create: if request.resource.data.keys().hasOnly(
+                        ['nickname', 'score', 'characterId', 'characterName', 'createdAt']
+                      )
+                    && request.resource.data.nickname is string
+                    && request.resource.data.nickname.size() > 0
+                    && request.resource.data.nickname.size() <= 16
+                    && request.resource.data.score is int
+                    && request.resource.data.score >= 0
+                    && request.resource.data.score <= 100000
+                    && request.resource.data.characterId is int
+                    && request.resource.data.characterId >= 0
+                    && request.resource.data.characterId <= 20
+                    && request.resource.data.characterName is string
+                    && request.resource.data.characterName.size() <= 40
+                    && request.resource.data.createdAt == request.time;
+
+      // Immutable once written: no editing or deleting scores from the client.
+      allow update, delete: if false;
+    }
+  }
+}
