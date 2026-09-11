@@ -466,8 +466,7 @@ body {
 .fan-disclaimer {
     font-family: 'Fredoka', sans-serif;
     font-size: 8px;
-    color: #fff;
-    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    color: #64748b;
     text-align: center;
     max-width: 260px;
     line-height: 1.4;
