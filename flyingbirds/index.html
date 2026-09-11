@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Flying Bird - Karakter Seçimli Macera</title>
+
+    <!-- PWA: installability + home screen metadata -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1b2838">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/icon-512.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Flying Bird">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Main Game Canvas -->
+        <canvas id="gameCanvas" width="480" height="640"></canvas>
+
+        <!-- UI Overlays -->
+        <div id="ui-layer">
+            <!-- Sound Toggle Button -->
+            <button id="sound-btn" class="icon-btn" title="Sesi Aç/Kapat">🔊</button>
+
+            <!-- Bird Unlock Toast (independent of screen transitions) -->
+            <div id="unlock-toast" class="unlock-toast hidden">
+                <span class="unlock-toast-icon">🎉</span>
+                <span id="unlock-toast-text">Yeni Kuş Açıldı!</span>
+            </div>
+
+            <!-- 1. CHARACTER SELECT SCREEN -->
+            <div id="screen-select" class="screen active">
+                <div class="game-logo">
+                    <h1 class="title-main">FLYING BIRD</h1>
+                    <span class="title-sub">BİR KARAKTER SEÇ</span>
+                </div>
+
+                <div class="character-carousel">
+                    <button id="prev-char-btn" class="nav-arrow-btn" aria-label="Önceki Karakter">◀</button>
+                    
+                    <div class="character-card">
+                        <div id="char-preview-box" class="char-preview-box">
+                            <img id="char-preview-img" src="assets/bird1.png" alt="Karakter Görseli">
+                            <div class="char-shadow"></div>
+                            <div id="lock-badge" class="lock-badge hidden">🔒 <span id="lock-req">0</span></div>
+                        </div>
+                        <h2 id="char-name" class="char-title">KAZUHA BIRD</h2>
+                        <div id="char-badge" class="char-badge badge-autumn">Sonbahar Esintisi 🍁</div>
+                        <p id="char-desc" class="char-desc">Hafif ve rüzgâr gibi süzülen akçaağaç yaprakları saçar.</p>
+                    </div>
+
+                    <button id="next-char-btn" class="nav-arrow-btn" aria-label="Sonraki Karakter">▶</button>
+                </div>
+
+                <div id="select-indicator" class="select-indicator"></div>
+
+                <button id="start-btn" class="retro-btn btn-primary pulse">
+                    <span>OYUNA BAŞLA</span>
+                </button>
+
+                <div class="high-score-display">
+                    🏆 EN İYİ SKOR: <span id="menu-high-score">0</span>
+                </div>
+
+                <button id="open-leaderboard-btn" class="retro-btn btn-tertiary leaderboard-open-btn">
+                    <span>🌍 LİDERLİK TABLOSU</span>
+                </button>
+
+                <div class="controls-hint">
+                    <span>⌨️ Boşluk / Tıklama: Zıpla</span>
+                    <span>◀ ▶ : Karakter Değiştir</span>
+                </div>
+            </div>
+
+            <!-- 2. GET READY SCREEN -->
+            <div id="screen-ready" class="screen">
+                <div class="ready-banner">
+                    <div class="ready-text">HAZIR OL!</div>
+                    <div class="tap-instruction">
+                        <div class="hand-icon">👆</div>
+                        <span>Zıplamak için Boşluk Tuşuna Bas veya Ekrana Dokun</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. GAME OVER SCREEN -->
+            <div id="screen-gameover" class="screen">
+                <div class="gameover-card">
+                    <div class="gameover-header">OYUN BİTTİ</div>
+                    
+                    <div class="score-board">
+                        <div class="medal-slot">
+                            <div class="medal-label">MADALYA</div>
+                            <div id="medal-display" class="medal medal-none">🥉</div>
+                        </div>
+                        
+                        <div class="score-data">
+                            <div class="score-row">
+                                <span class="label">SKOR</span>
+                                <span id="final-score" class="val">0</span>
+                            </div>
+                            <div class="score-row">
+                                <span class="label">EN İYİ</span>
+                                <span id="final-high-score" class="val">0</span>
+                            </div>
+                            <div id="new-record-badge" class="new-record hidden">YENİ REKOR! 🎉</div>
+                        </div>
+                    </div>
+
+                    <div class="gameover-buttons">
+                        <button id="restart-btn" class="retro-btn btn-primary">
+                            <span>TEKRAR OYNA</span>
+                        </button>
+                        <button id="view-leaderboard-btn" class="retro-btn btn-tertiary">
+                            <span>🌍 LİDERLİK TABLOSU</span>
+                        </button>
+                        <button id="change-char-btn" class="retro-btn btn-secondary">
+                            <span>KARAKTER DEĞİŞTİR</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. LEADERBOARD MODAL (overlays whichever screen was active) -->
+            <div id="screen-leaderboard" class="screen modal-screen">
+                <div class="leaderboard-card">
+                    <div class="leaderboard-header">
+                        <span>🏆 LİDERLİK TABLOSU</span>
+                        <button id="close-leaderboard-btn" class="icon-btn modal-close-btn" aria-label="Kapat">✕</button>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="profile-label">Adın:</span>
+                        <input id="nickname-input" class="nickname-input" type="text" maxlength="16" placeholder="İsim gir...">
+                        <button id="save-nickname-btn" class="retro-btn btn-primary nickname-save-btn">
+                            <span>Kaydet</span>
+                        </button>
+                    </div>
+                    <div id="nickname-feedback" class="nickname-feedback hidden"></div>
+
+                    <div id="leaderboard-status" class="leaderboard-status hidden"></div>
+                    <ol id="leaderboard-list" class="leaderboard-list"></ol>
+
+                    <button id="refresh-leaderboard-btn" class="retro-btn btn-secondary refresh-btn">
+                        <span>🔄 YENİLE</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="leaderboard.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
