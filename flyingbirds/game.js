@@ -1064,10 +1064,10 @@ class Game {
         if (this.screenShake < 0.2) this.screenShake = 0;
         if (this.flashAlpha > 0) this.flashAlpha -= 0.05;
 
-        // Day/Night: every 100 passed pipes flips the theme (0-99 day,
-        // 100-199 night, ...). dayNightT eases toward the target each frame
+        // Day/Night: every 30 passed pipes flips the theme (0-29 day,
+        // 30-59 night, ...). dayNightT eases toward the target each frame
         // so the crossfade is smooth instead of an instant cut.
-        const nightTarget = (Math.floor(this.score / 100) % 2 === 1) ? 1 : 0;
+        const nightTarget = (Math.floor(this.score / 30) % 2 === 1) ? 1 : 0;
         this.dayNightT += (nightTarget - this.dayNightT) * 0.015;
         if (Math.abs(nightTarget - this.dayNightT) < 0.001) this.dayNightT = nightTarget;
 
