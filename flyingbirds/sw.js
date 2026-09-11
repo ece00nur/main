@@ -1,7 +1,7 @@
 // Minimal offline-caching Service Worker.
 // Strategy: cache-first for the app shell, with runtime caching for anything
 // else same-origin fetches pull in later (e.g. a newly added asset).
-const CACHE_VERSION = 'flying-bird-v3';
+const CACHE_VERSION = 'flying-bird-v4';
 
 const CORE_ASSETS = [
     './',
