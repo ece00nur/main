@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bemas Muhasebe — İndir</title>
+<meta name="description" content="Bemas muhasebe/cari hesap uygulamasının Windows kurulum dosyasını indirin.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --navy:#12233d;
+    --navy-2:#1a3155;
+    --accent:#2f6fed;
+    --ink:#16202c;
+    --muted:#5b6b7f;
+    --line:#e3e8f0;
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.55;
+  }
+  a{color:var(--accent);}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+  section{padding:56px 0;}
+  h1,h2,h3{line-height:1.25;margin:0 0 12px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:10px;
+  }
+
+  /* ---- Top bar ---- */
+  .topbar{padding:14px 0;}
+  .topbar a{color:var(--muted);text-decoration:none;font-size:13px;}
+  .topbar a:hover{color:var(--accent);}
+
+  /* ---- Hero ---- */
+  .hero{
+    background:linear-gradient(155deg,var(--navy) 0%,var(--navy-2) 55%,#254a86 100%);
+    color:#fff;padding:52px 0 88px;
+  }
+  .hero-grid{display:flex;gap:48px;align-items:center;flex-wrap:wrap;}
+  .hero-copy{flex:1 1 420px;}
+  .hero h1{font-size:clamp(26px,4vw,36px);color:#fff;}
+  .hero p.lead{color:#d7e2f7;font-size:16.5px;max-width:560px;}
+  .badge-row{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 28px;}
+  .badge{
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+    padding:6px 12px;border-radius:999px;font-size:13px;color:#eef3ff;
+  }
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 26px;border-radius:10px;font-size:15px;font-weight:700;
+    text-decoration:none;border:none;cursor:pointer;transition:transform .12s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:#fff;color:var(--navy);box-shadow:0 10px 24px rgba(0,0,0,.18);}
+  .btn-primary:hover{background:#f2f6ff;}
+  .btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);}
+  .btn-ghost:hover{background:rgba(255,255,255,.08);}
+  .file-meta{font-size:12.5px;color:#b9c9ea;margin-top:10px;}
+  .file-meta code{background:rgba(255,255,255,.12);padding:1px 6px;border-radius:5px;font-size:11.5px;}
+
+  .hero-card{
+    flex:1 1 300px;max-width:340px;background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);border-radius:var(--radius);
+    padding:24px;
+  }
+  .hero-card h3{color:#fff;font-size:15px;margin-bottom:14px;}
+  .spec-list{list-style:none;margin:0;padding:0;display:grid;gap:11px;}
+  .spec-list li{display:flex;justify-content:space-between;font-size:13.5px;color:#e4ecfc;gap:12px;}
+  .spec-list span:first-child{color:#a9bcdf;}
+
+  /* ---- Section headers ---- */
+  .section-head{max-width:640px;margin:0 auto 36px;text-align:center;}
+  .section-head p{color:var(--muted);font-size:15px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);}
+
+  /* ---- Requirements ---- */
+  .req-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .req-item{padding:20px;}
+  .req-item .icon{
+    width:36px;height:36px;border-radius:9px;background:#eaf1ff;color:var(--accent);
+    display:flex;align-items:center;justify-content:center;margin-bottom:10px;
+  }
+  .req-item h3{font-size:14.5px;}
+  .req-item p{margin:0;color:var(--muted);font-size:13.5px;}
+
+  /* ---- Steps ---- */
+  .steps{counter-reset:step;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;}
+  .step{padding:24px 20px;position:relative;}
+  .step::before{
+    counter-increment:step;content:counter(step);
+    width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;
+    margin-bottom:12px;
+  }
+  .step h3{font-size:14.5px;}
+  .step p{margin:0;color:var(--muted);font-size:13.5px;}
+  .step .note{
+    display:inline-block;margin-top:10px;font-size:12px;background:#fff6e6;color:#8a5a00;
+    padding:4px 9px;border-radius:6px;border:1px solid #f2ddab;
+  }
+
+  /* ---- Features ---- */
+  .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;}
+  .feat{padding:22px;}
+  .feat .icon{
+    width:38px;height:38px;border-radius:10px;background:var(--navy);color:#fff;
+    display:flex;align-items:center;justify-content:center;margin-bottom:12px;
+  }
+  .feat h3{font-size:15.5px;}
+  .feat p{margin:0;color:var(--muted);font-size:13.5px;}
+
+  /* ---- FAQ ---- */
+  .faq{max-width:760px;margin:0 auto;display:grid;gap:12px;}
+  details{padding:16px 20px;cursor:pointer;}
+  details summary{font-weight:600;font-size:14.5px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+  details summary::-webkit-details-marker{display:none;}
+  details summary::after{content:"+";font-size:20px;color:var(--accent);font-weight:400;}
+  details[open] summary::after{content:"–";}
+  details p{margin:12px 0 0;color:var(--muted);font-size:13.8px;}
+
+  footer{padding:26px 0;text-align:center;color:var(--muted);font-size:12.5px;}
+
+  @media (max-width:640px){
+    section{padding:40px 0;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="wrap">
+      <a href="/">← melina.com.tr</a>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1>Bemas Muhasebe</h1>
+        <p class="lead">
+          Fatura ve ödeme takibini otomatikleştiren küçük bir masaüstü uygulaması. Excel fatura
+          listelerini ve banka dekontu PDF'lerini otomatik işler, firma bazlı cari hesap
+          bakiyelerini hesaplar.
+        </p>
+        <div class="badge-row">
+          <span class="badge" id="badge-version">Sürüm 1.0.0</span>
+          <span class="badge" id="badge-date">12.09.2026</span>
+          <span class="badge">Windows 10/11 x64</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-primary" id="download-btn" href="downloads/bemas-setup-latest.exe" download>
+            ⬇ İndir (Windows x64)
+          </a>
+          <a class="btn btn-ghost" href="#kurulum">Kurulum adımları</a>
+        </div>
+        <div class="file-meta">
+          Dosya: <code id="file-name">bemas-setup-v1.0.0.exe</code> ·
+          Boyut: <span id="file-size">~92 MB</span> ·
+          SHA-256: <code id="file-hash">bkz. CHANGELOG.txt</code>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Özet</h3>
+        <ul class="spec-list">
+          <li><span>İşletim Sistemi</span><span>Windows 10/11 (64-bit)</span></li>
+          <li><span>RAM</span><span>4 GB (8 GB önerilir)</span></li>
+          <li><span>Disk Alanı</span><span>300 MB boş alan</span></li>
+          <li><span>Ağ</span><span>Sunucu bağlantısı gerekir</span></li>
+          <li><span>Ek Bileşen</span><span>Gerekmez</span></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <section id="gereksinimler">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Gereksinimler</div>
+        <h2>Kurulumdan önce</h2>
+        <p>Uygulama tüm çalışma bileşenlerini kendi içinde barındırır; ayrı bir çalışma zamanı
+        (.NET, Java vb.) kurmanız gerekmez.</p>
+      </div>
+      <div class="req-grid">
+        <div class="card req-item">
+          <div class="icon">💻</div>
+          <h3>İşletim Sistemi</h3>
+          <p>Windows 10 64-bit (1909+) veya Windows 11. 32-bit desteklenmez.</p>
+        </div>
+        <div class="card req-item">
+          <div class="icon">⚙️</div>
+          <h3>Donanım</h3>
+          <p>En az 4 GB RAM (8 GB önerilir), 300 MB boş disk alanı.</p>
+        </div>
+        <div class="card req-item">
+          <div class="icon">🌐</div>
+          <h3>Ağ Bağlantısı</h3>
+          <p>Uygulama verileri tuttuğu sunucuya (aynı ağdaki bir bilgisayar) bağlanır. Kurulum
+          öncesi o ağa bağlı olduğunuzdan emin olun.</p>
+        </div>
+        <div class="card req-item">
+          <div class="icon">🔑</div>
+          <h3>Giriş</h3>
+          <p>Uygulamayı açtığınızda size verilen kullanıcı adı ve şifre ile giriş yapmanız
+          yeterli.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kurulum" style="background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Kurulum</div>
+        <h2>4 adımda kurulum</h2>
+        <p>1-2 dakika sürer, yönetici (admin) onayı gerekmez.</p>
+      </div>
+      <div class="steps">
+        <div class="card step">
+          <h3>Dosyayı indirin</h3>
+          <p>Yukarıdaki "İndir" düğmesiyle kurulum dosyasını (.exe) bilgisayarınıza kaydedin.</p>
+        </div>
+        <div class="card step">
+          <h3>Güvenlik uyarısını geçin</h3>
+          <p>Windows SmartScreen "Bilinmeyen yayımcı" uyarısı gösterebilir; bu dosya kod imzalama
+          sertifikası olmayan iç kullanım için hazırlanmış bir yazılımdır.</p>
+          <span class="note">"Ek bilgi" → "Yine de çalıştır" seçin</span>
+        </div>
+        <div class="card step">
+          <h3>Sihirbazı tamamlayın</h3>
+          <p>Açılan pencerede "İleri" ile ilerleyin. Kurulum bitince masaüstünde bir kısayol
+          oluşur.</p>
+        </div>
+        <div class="card step">
+          <h3>Giriş yapın</h3>
+          <p>Uygulamayı açın, size verilen kullanıcı adı ve şifre ile oturum açın.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ozellikler">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Ne İşe Yarar</div>
+        <h2>Uygulama neler yapıyor</h2>
+      </div>
+      <div class="feat-grid">
+        <div class="card feat">
+          <div class="icon">📊</div>
+          <h3>Fatura İçe Aktarma</h3>
+          <p>Gelen/giden e-fatura Excel listelerini tek tıkla içe aktarır; firma, tutar ve tarih
+          bilgilerini otomatik eşleştirir.</p>
+        </div>
+        <div class="card feat">
+          <div class="icon">🧾</div>
+          <h3>Dekont Okuma</h3>
+          <p>Banka havale/EFT dekontu PDF'lerinden tutar, tarih ve IBAN bilgisini otomatik
+          çıkarır; taranmış dekontlarda OCR ile okur.</p>
+        </div>
+        <div class="card feat">
+          <div class="icon">📁</div>
+          <h3>Cari Hesap Takibi</h3>
+          <p>Her firma için güncel bakiyeyi tek ekranda gösterir; hesap özetini Excel olarak
+          dışa aktarır.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sss" style="background:var(--card);border-top:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">SSS</div>
+        <h2>Sık sorulan sorular</h2>
+      </div>
+      <div class="faq">
+        <details class="card" open>
+          <summary>"Bilinmeyen yayımcı" uyarısı çıkıyor, güvenli mi?</summary>
+          <p>Evet. Bu dosya genel dağıtım için değil, iç kullanım için hazırlandığından bir kod
+          imzalama sertifikası taşımıyor. "Ek bilgi" → "Yine de çalıştır" ile devam edebilirsiniz.
+          Dosyayı yalnızca bu sayfadan indirdiğinizden emin olun.</p>
+        </details>
+        <details class="card">
+          <summary>"Sunucuya bağlanılamıyor" hatası alıyorum</summary>
+          <p>Uygulamanın bağlandığı bilgisayarla aynı ağda olup olmadığınızı kontrol edin. Sorun
+          devam ederse bana ulaşın.</p>
+        </details>
+        <details class="card">
+          <summary>Yeni sürüm çıkınca ne yapmalıyım?</summary>
+          <p>Bu sayfa güncellenince yeni kurulum dosyasını indirip mevcut kurulumu kaldırmadan
+          üzerine kurabilirsiniz; verileriniz korunur.</p>
+        </details>
+        <details class="card">
+          <summary>Kurulum için yönetici izni gerekiyor mu?</summary>
+          <p>Hayır, kurulum kullanıcı hesabı altına yapılır.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      Bemas Muhasebe · <span id="year">2026</span>
+    </div>
+  </footer>
+
+<script>
+  // Yeni sürümde sadece bu nesneyi güncellemek yeterli.
+  const RELEASE = {
+    version: "1.0.0",
+    dateLabel: "12.09.2026",
+    fileName: "bemas-setup-v1.0.0.exe",
+    fileSize: "~92 MB",
+    sha256: "bkz. downloads/bemas-setup-v1.0.0.exe.sha256",
+    downloadPath: "downloads/bemas-setup-latest.exe"
+  };
+
+  document.getElementById("badge-version").textContent = `Sürüm ${RELEASE.version}`;
+  document.getElementById("badge-date").textContent = RELEASE.dateLabel;
+  document.getElementById("download-btn").href = RELEASE.downloadPath;
+  document.getElementById("file-name").textContent = RELEASE.fileName;
+  document.getElementById("file-size").textContent = RELEASE.fileSize;
+  document.getElementById("file-hash").textContent = RELEASE.sha256;
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
