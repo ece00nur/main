@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>MelDownloader — İndir</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MelDownloader masaüstü uygulamasının Windows kurulum dosyasını indirin.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fff7f9; --surface:rgba(255,255,255,.88); --surface-solid:#ffffff;
+    --border:rgba(251,199,214,.55); --ink:#4a2835; --ink-muted:#8c6a77;
+    --accent:#ec407a; --accent-strong:#d81b60; --accent-soft:#fbc7d6; --accent-soft-bg:#fde8ee;
+    --shadow: 0 10px 30px -8px rgba(236,64,122,.18);
+    --radius-lg:24px; --radius-md:18px; --radius-sm:12px;
+    --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1f1418; --surface:rgba(255,255,255,.055); --surface-solid:#2a1c22;
+      --border:rgba(251,199,214,.16); --ink:#fbe4ea; --ink-muted:#c9a3b1;
+      --accent:#f993b7; --accent-strong:#ff6fa3; --accent-soft:rgba(251,199,214,.14); --accent-soft-bg:rgba(251,199,214,.08);
+      --shadow: 0 10px 30px -8px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1f1418; --surface:rgba(255,255,255,.055); --surface-solid:#2a1c22;
+    --border:rgba(251,199,214,.16); --ink:#fbe4ea; --ink-muted:#c9a3b1;
+    --accent:#f993b7; --accent-strong:#ff6fa3; --accent-soft:rgba(251,199,214,.14); --accent-soft-bg:rgba(251,199,214,.08);
+    --shadow: 0 10px 30px -8px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:var(--font); background:var(--bg); color:var(--ink);
+    -webkit-font-smoothing:antialiased; position:relative; overflow-x:hidden;
+  }
+  a{color:inherit}
+  .orb{position:fixed; border-radius:50%; filter:blur(70px); z-index:0; pointer-events:none; opacity:.55}
+  .orb-1{width:280px; height:280px; background:var(--accent-soft); top:-90px; left:-90px}
+  .orb-2{width:340px; height:340px; background:var(--accent-soft-bg); top:280px; right:-120px}
+
+  .wrap{max-width:720px; margin:0 auto; padding:28px 20px 80px; position:relative; z-index:1}
+
+  .back{display:inline-flex; align-items:center; gap:6px; font-size:.85rem; font-weight:600;
+    color:var(--ink-muted); text-decoration:none; margin-bottom:28px}
+  .back:hover{color:var(--accent)}
+
+  .eyebrow{display:inline-flex; align-items:center; gap:6px; font-size:.78rem; font-weight:700;
+    letter-spacing:.04em; color:var(--accent-strong); background:var(--accent-soft-bg);
+    border:1px solid var(--border); padding:6px 14px; border-radius:999px; margin-bottom:18px}
+
+  h1{font-size:clamp(2.1rem, 6vw, 2.9rem); line-height:1.08; margin:0 0 12px; font-weight:800; text-wrap:balance}
+  h1 .hl{color:var(--accent)}
+
+  .lede{font-size:1.05rem; line-height:1.6; color:var(--ink-muted); max-width:52ch; margin:0 0 30px}
+
+  .cta{
+    display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,#f48fb1,var(--accent-strong));
+    color:#fff; font-weight:700; font-size:1.05rem; text-decoration:none;
+    padding:16px 28px; border-radius:var(--radius-md); box-shadow: 0 10px 24px -6px rgba(236,64,122,.45);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .cta:hover{transform:translateY(-2px); box-shadow:0 14px 28px -6px rgba(236,64,122,.55)}
+  .cta:active{transform:translateY(0)}
+
+  .filemeta{margin:14px 0 6px; font-size:.82rem; color:var(--ink-muted); font-variant-numeric:tabular-nums}
+  .filemeta code{background:var(--surface); border:1px solid var(--border); padding:1px 6px; border-radius:6px; font-size:.78rem}
+
+  .badges{display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 4px}
+  .badge{font-size:.78rem; font-weight:600; color:var(--ink-muted); background:var(--surface);
+    border:1px solid var(--border); padding:5px 12px; border-radius:999px}
+
+  section{margin-top:56px}
+  .section-label{font-size:.78rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent-strong); margin:0 0 6px}
+  .section-title{font-size:1.4rem; font-weight:800; margin:0 0 24px; text-wrap:balance}
+
+  .req-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(130px,1fr)); gap:1px;
+    background:var(--border); border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden}
+  .req-cell{background:var(--surface-solid); padding:16px 14px}
+  .req-cell .k{font-size:.72rem; font-weight:700; color:var(--ink-muted); text-transform:uppercase; letter-spacing:.03em; margin-bottom:4px}
+  .req-cell .v{font-size:.92rem; font-weight:700}
+
+  .req-cards{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:14px; margin-top:16px}
+  .req-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:18px; box-shadow:var(--shadow)}
+  .req-card .ic{font-size:1.4rem; margin-bottom:10px; display:block}
+  .req-card h3{font-size:.95rem; margin:0 0 6px}
+  .req-card p{font-size:.86rem; line-height:1.5; color:var(--ink-muted); margin:0}
+
+  .steps{list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:0}
+  .step{display:grid; grid-template-columns:40px 1fr; gap:16px; padding:18px 0; border-top:1px solid var(--border)}
+  .step:first-child{border-top:none}
+  .step-num{width:40px; height:40px; border-radius:50%; background:var(--accent-soft-bg); color:var(--accent-strong);
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.95rem}
+  .step h3{margin:2px 0 6px; font-size:.98rem}
+  .step p{margin:0; font-size:.88rem; line-height:1.55; color:var(--ink-muted)}
+
+  .feat-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:14px; margin-top:16px}
+  .feat{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md); padding:18px; box-shadow:var(--shadow)}
+  .feat .ic{font-size:1.5rem; display:block; margin-bottom:10px}
+  .feat h3{margin:0 0 6px; font-size:.95rem}
+  .feat p{margin:0; font-size:.86rem; line-height:1.5; color:var(--ink-muted)}
+
+  details{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); margin-bottom:10px; overflow:hidden}
+  summary{padding:15px 18px; font-weight:700; font-size:.92rem; cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+"; font-size:1.2rem; color:var(--accent); font-weight:400; flex-shrink:0}
+  details[open] summary::after{content:"–"}
+  details p{margin:0; padding:0 18px 16px; font-size:.87rem; line-height:1.6; color:var(--ink-muted)}
+
+  footer{margin-top:64px; padding-top:24px; border-top:1px solid var(--border); text-align:center}
+  .sig{font-size:.85rem; color:var(--ink-muted); margin-bottom:8px}
+  .sig .flower{margin:0 4px}
+  .copyright{font-size:.78rem; color:var(--ink-muted); opacity:.75}
+
+  @media (max-width:480px){
+    .req-grid{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="wrap">
+    <a class="back" href="/">← melina.com.tr</a>
+
+    <span class="eyebrow">🌸 Masaüstü Sürümü</span>
+    <h1><span class="hl">Mel</span>Downloader</h1>
+    <p class="lede">Instagram, YouTube, TikTok, Twitter/X ve Pinterest videolarını cihazına uygun formatta, tek tıkla indiren küçük bir Windows programı. Hesap oluşturma yok, kurulum sihirbazı yok — indir, çalıştır, kullan.</p>
+
+    <a class="cta" id="download-btn" href="downloads/meldownloader-setup-latest.exe" download>
+      ⬇ İndir (Windows x64)
+    </a>
+    <div class="filemeta">
+      Dosya: <code id="file-name">meldownloader-setup-latest.exe</code> ·
+      Boyut: <span id="file-size">~52 MB</span> ·
+      SHA-256: <code id="file-hash">bkz. CHANGELOG.txt</code>
+    </div>
+
+    <div class="badges">
+      <span class="badge" id="badge-version">Sürüm 1.0.0</span>
+      <span class="badge" id="badge-date">12.09.2026</span>
+      <span class="badge">Windows 10/11 x64</span>
+    </div>
+
+    <section id="gereksinimler">
+      <p class="section-label">Özet</p>
+      <h2 class="section-title">Sistem gereksinimleri</h2>
+      <div class="req-grid">
+        <div class="req-cell"><div class="k">İşletim Sistemi</div><div class="v">Windows 10/11 (64-bit)</div></div>
+        <div class="req-cell"><div class="k">RAM</div><div class="v">4 GB yeterli</div></div>
+        <div class="req-cell"><div class="k">Disk Alanı</div><div class="v">~200 MB boş alan</div></div>
+        <div class="req-cell"><div class="k">Ağ</div><div class="v">İnternet gerekir</div></div>
+        <div class="req-cell"><div class="k">Ek Bileşen</div><div class="v">Gerekmez</div></div>
+      </div>
+
+      <div class="req-cards">
+        <div class="req-card">
+          <span class="ic">💻</span>
+          <h3>İşletim sistemi</h3>
+          <p>Windows 10 64-bit (1909+) veya Windows 11. 32-bit desteklenmez.</p>
+        </div>
+        <div class="req-card">
+          <span class="ic">🌐</span>
+          <h3>İnternet bağlantısı</h3>
+          <p>Videoları doğrudan ilgili platformdan indirdiği için aktif bir internet bağlantısı gerekir.</p>
+        </div>
+        <div class="req-card">
+          <span class="ic">📦</span>
+          <h3>Kendi kendine yeterli</h3>
+          <p>FFmpeg dahil tüm çalışma bileşenleri dosyanın içinde gelir; ayrıca bir şey kurmana gerek yok.</p>
+        </div>
+        <div class="req-card">
+          <span class="ic">🔓</span>
+          <h3>Hesap gerekmez</h3>
+          <p>Kayıt olma, giriş yapma yok — çalıştır ve doğrudan kullanmaya başla.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="kurulum">
+      <p class="section-label">Kurulum</p>
+      <h2 class="section-title">4 adımda hazır</h2>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-num">1</span>
+          <div><h3>Dosyayı indir</h3><p>Yukarıdaki "İndir" düğmesiyle kurulum dosyasını bilgisayarına kaydet.</p></div>
+        </li>
+        <li class="step">
+          <span class="step-num">2</span>
+          <div><h3>Güvenlik uyarısını geç</h3><p>Windows SmartScreen "Bilinmeyen yayımcı" uyarısı gösterebilir — bu dosya kod imzalama sertifikası olmayan küçük, kişisel bir proje. "Ek bilgi" → "Yine de çalıştır" ile devam et.</p></div>
+        </li>
+        <li class="step">
+          <span class="step-num">3</span>
+          <div><h3>Çift tıkla, çalıştır</h3><p>Küçük bir siyah pencere (konsol) açılır — bu normal, programın çalıştığını gösterir. Bu pencereyi kapatmadığın sürece program açık kalır.</p></div>
+        </li>
+        <li class="step">
+          <span class="step-num">4</span>
+          <div><h3>Kullanmaya başla</h3><p>Birkaç saniye içinde tarayıcın otomatik açılır ve uygulama karşına gelir.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <section id="ozellikler">
+      <p class="section-label">Ne İşe Yarar</p>
+      <h2 class="section-title">Uygulama neler yapıyor</h2>
+      <div class="feat-grid">
+        <div class="feat"><span class="ic">🎬</span><h3>5 platform desteği</h3><p>Instagram, YouTube, TikTok, Twitter/X ve Pinterest bağlantılarını otomatik tanır.</p></div>
+        <div class="feat"><span class="ic">📱</span><h3>Cihaza özel format</h3><p>iPhone/iPad, Android, PC (orijinal kalite) veya sadece ses (320kbps MP3) seçenekleri arasından seç.</p></div>
+        <div class="feat"><span class="ic">⚡</span><h3>Anında dönüştürme</h3><p>Akış kopyalama sayesinde çoğu video, kalite kaybı olmadan saniyeler içinde hazır olur.</p></div>
+        <div class="feat"><span class="ic">📊</span><h3>Canlı ilerleme</h3><p>İndirme ve dönüştürme adımlarını gerçek zamanlı bir ilerleme çubuğuyla takip et.</p></div>
+      </div>
+    </section>
+
+    <section id="sss">
+      <p class="section-label">SSS</p>
+      <h2 class="section-title">Sık sorulan sorular</h2>
+
+      <details open>
+        <summary>"Bilinmeyen yayımcı" uyarısı çıkıyor, güvenli mi?</summary>
+        <p>Evet. Bu, genel dağıtım için değil, küçük ve kişisel bir proje olarak hazırlandığından bir kod imzalama sertifikası taşımıyor. "Ek bilgi" → "Yine de çalıştır" ile devam edebilirsin. Dosyayı yalnızca bu sayfadan indirdiğinden emin ol.</p>
+      </details>
+      <details>
+        <summary>İndirdiğim videolar nereye kaydediliyor?</summary>
+        <p>Programın bulunduğu klasörün içinde otomatik oluşan <code>downloads</code> adlı alt klasöre. Programı kapatsan da bu dosyalar orada kalır.</p>
+      </details>
+      <details>
+        <summary>Bir video indirilmiyor / hata alıyorum</summary>
+        <p>Bağlantının desteklenen platformlardan (Instagram, YouTube, TikTok, Twitter/X, Pinterest) olduğundan ve internete bağlı olduğundan emin ol. Bazı gizli, yaş kısıtlamalı veya kaldırılmış içerikler indirilemeyebilir.</p>
+      </details>
+      <details>
+        <summary>Telefonumda da kullanabilir miyim?</summary>
+        <p>Bu <code>.exe</code> dosyası yalnızca Windows bilgisayarlar için hazırlandı.</p>
+      </details>
+    </section>
+
+    <footer>
+      <p class="sig"><span class="flower">🌸</span>Nisa Hanım'a Özel Olarak Sevgiyle Hazırlanmıştır<span class="flower">✨</span></p>
+      <p class="copyright">MelDownloader · <span id="year">2026</span></p>
+    </footer>
+  </div>
+
+<script>
+  // Yeni sürümde sadece bu nesneyi güncellemek yeterli (bkz. downloads/CHANGELOG.txt).
+  const RELEASE = {
+    version: "1.0.0",
+    dateLabel: "12.09.2026",
+    fileName: "meldownloader-setup-latest.exe",
+    fileSize: "~52 MB",
+    sha256: "d678e7683fbb1cbb92bc8688abfe43f6dc0cf718dfe34b71c6f11b1c574b093f",
+    downloadPath: "downloads/meldownloader-setup-latest.exe"
+  };
+
+  document.getElementById("badge-version").textContent = `Sürüm ${RELEASE.version}`;
+  document.getElementById("badge-date").textContent = RELEASE.dateLabel;
+  document.getElementById("download-btn").href = RELEASE.downloadPath;
+  document.getElementById("file-name").textContent = RELEASE.fileName;
+  document.getElementById("file-size").textContent = RELEASE.fileSize;
+  const hashEl = document.getElementById("file-hash");
+  hashEl.textContent = RELEASE.sha256.slice(0, 12) + "…";
+  hashEl.title = RELEASE.sha256;
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
