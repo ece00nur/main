@@ -322,9 +322,9 @@
   const RELEASE = {
     version: "1.0.0",
     dateLabel: "12.09.2026",
-    fileName: "bemas-setup-v1.0.0.exe",
-    fileSize: "~92 MB",
-    sha256: "bkz. downloads/bemas-setup-v1.0.0.exe.sha256",
+    fileName: "bemas-setup-latest.exe",
+    fileSize: "~75 MB",
+    sha256: "8c5665872e795b3ec286ef2c2216f48a6b705194248963019906408b1fac83cc",
     downloadPath: "downloads/bemas-setup-latest.exe"
   };
 
@@ -333,7 +333,9 @@
   document.getElementById("download-btn").href = RELEASE.downloadPath;
   document.getElementById("file-name").textContent = RELEASE.fileName;
   document.getElementById("file-size").textContent = RELEASE.fileSize;
-  document.getElementById("file-hash").textContent = RELEASE.sha256;
+  const hashEl = document.getElementById("file-hash");
+  hashEl.textContent = RELEASE.sha256.slice(0, 12) + "…";
+  hashEl.title = RELEASE.sha256;
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 </body>

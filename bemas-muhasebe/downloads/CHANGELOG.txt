@@ -1,18 +1,19 @@
-Bemas Treyler Cari Hesap Takip Sistemi - Sürüm Notları
-=======================================================
+Bemas Muhasebe - Sürüm Notları
+================================
 
 v1.0.0 - 12.09.2026
 --------------------
-- İlk kurumsal dağıtım sürümü.
-- Kolaysoft e-fatura Excel (gelen/giden) otomatik içe aktarma.
+- İlk sürüm.
+- Excel fatura (gelen/giden) otomatik içe aktarma.
 - Banka dekontu PDF ayrıştırma ve OCR desteği.
 - Firma bazlı cari hesap takibi ve Excel dışa aktarım.
 
-Kurulum dosyasını güncellerken:
-  1. Yeni installer'ı  downloads/bemas-setup-v<surum>.exe olarak bu klasöre kopyalayın.
-  2. SHA-256 özetini üretip downloads/bemas-setup-v<surum>.exe.sha256 dosyasına yazın:
-       certutil -hashfile bemas-setup-v<surum>.exe SHA256
-  3. downloads/bemas-setup-latest.exe dosyasını yeni sürümün bir kopyası/sembolik
-     bağlantısı olacak şekilde güncelleyin (İndir düğmesi hep bu adı kullanır).
-  4. index.html içindeki RELEASE nesnesini (version, dateLabel, fileName, fileSize,
-     sha256) güncelleyin.
+Yeni sürüm yayınlarken:
+  1. desktop/ içinde: npm run dist  (dist/*.exe dosyasını üretir)
+  2. Üretilen .exe dosyasını downloads/bemas-setup-latest.exe olarak buraya kopyalayın
+     (üzerine yazın - eski sürüm silinir, tek dosya tutulur).
+  3. SHA-256 üretin:
+       python -c "import hashlib;print(hashlib.sha256(open('bemas-setup-latest.exe','rb').read()).hexdigest())"
+     ve downloads/bemas-setup-latest.exe.sha256 dosyasına yazın.
+  4. index.html içindeki RELEASE nesnesini (version, dateLabel, fileSize, sha256)
+     güncelleyin.
