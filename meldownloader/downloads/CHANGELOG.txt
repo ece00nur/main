@@ -1,7 +1,7 @@
 MelDownloader - Sürüm Notları
 ================================
 
-v1.0.0 - 13.09.2026
+v1.0.0 - 14.09.2026
 --------------------
 - İlk sürüm.
 - Instagram, YouTube, TikTok, Twitter/X, Pinterest video indirme.
@@ -9,14 +9,19 @@ v1.0.0 - 13.09.2026
 - Canlı ilerleme çubuğu, Redis/Celery olmadan tek dosyalık masaüstü sürüm.
 - Gerçek kurulum sihirbazı (Inno Setup): masaüstü simgesi, Başlat Menüsü kısayolu,
   Program Ekle/Kaldır'da listelenir. Yönetici izni gerekmez.
+- Uygulama artık kendi penceresinde açılıyor (pywebview + WebView2) - tarayıcıda
+  sekme açmıyor, konsol penceresi göstermiyor.
 
 Yeni sürüm yayınlarken:
   1. Ana projede (5 (downloadMel)/): PyInstaller ile portable exe'yi derleyin:
-       .venv\Scripts\pyinstaller.exe --onefile --name MelDownloader --icon static/icon.ico ^
+       .venv\Scripts\pyinstaller.exe --onefile --windowed --name MelDownloader --icon static/icon.ico ^
          --add-data "templates;templates" --add-data "static;static" ^
          --collect-all imageio_ffmpeg --collect-submodules yt_dlp ^
-         --collect-data certifi --collect-submodules uvicorn --noconfirm --clean desktop_app.py
-     (dist/MelDownloader.exe dosyasını üretir)
+         --collect-data certifi --collect-submodules uvicorn ^
+         --collect-all webview --collect-all clr_loader --collect-all pythonnet ^
+         --noconfirm --clean desktop_app.py
+     (dist/MelDownloader.exe dosyasını üretir. --windowed konsolu gizler; webview/clr_loader/
+     pythonnet toplama bayrakları olmadan pencere motoru (WebView2) pakete girmez.)
   2. Inno Setup ile kurulum sihirbazına sarın:
        "%LOCALAPPDATA%\Programs\Inno Setup 6\ISCC.exe" installer.iss
      (installer_dist/meldownloader-setup-latest.exe dosyasını üretir - masaüstü/Başlat Menüsü
