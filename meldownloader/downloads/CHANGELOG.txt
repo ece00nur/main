@@ -11,6 +11,8 @@ v1.0.0 - 14.09.2026
   Program Ekle/Kaldır'da listelenir. Yönetici izni gerekmez.
 - Uygulama artık kendi penceresinde açılıyor (pywebview + WebView2) - tarayıcıda
   sekme açmıyor, konsol penceresi göstermiyor.
+- Kişiye özel imza rozeti kaldırıldı (uygulama içi ve indirme sayfası); indirme
+  sayfasına "Ece Nur Arı tarafından geliştirildi" ibaresi eklendi.
 
 Yeni sürüm yayınlarken:
   1. Ana projede (5 (downloadMel)/): PyInstaller ile portable exe'yi derleyin:
