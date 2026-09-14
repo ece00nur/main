@@ -1,0 +1,35 @@
+MelDownloader - Sürüm Notları
+================================
+
+v1.0.0 - 14.09.2026
+--------------------
+- İlk sürüm.
+- Instagram, YouTube, TikTok, Twitter/X, Pinterest video indirme.
+- Cihaza özel format: iPhone/iPad, Android, PC, sadece ses (320kbps MP3).
+- Canlı ilerleme çubuğu, Redis/Celery olmadan tek dosyalık masaüstü sürüm.
+- Gerçek kurulum sihirbazı (Inno Setup): masaüstü simgesi, Başlat Menüsü kısayolu,
+  Program Ekle/Kaldır'da listelenir. Yönetici izni gerekmez.
+- Uygulama artık kendi penceresinde açılıyor (pywebview + WebView2) - tarayıcıda
+  sekme açmıyor, konsol penceresi göstermiyor.
+
+Yeni sürüm yayınlarken:
+  1. Ana projede (5 (downloadMel)/): PyInstaller ile portable exe'yi derleyin:
+       .venv\Scripts\pyinstaller.exe --onefile --windowed --name MelDownloader --icon static/icon.ico ^
+         --add-data "templates;templates" --add-data "static;static" ^
+         --collect-all imageio_ffmpeg --collect-submodules yt_dlp ^
+         --collect-data certifi --collect-submodules uvicorn ^
+         --collect-all webview --collect-all clr_loader --collect-all pythonnet ^
+         --noconfirm --clean desktop_app.py
+     (dist/MelDownloader.exe dosyasını üretir. --windowed konsolu gizler; webview/clr_loader/
+     pythonnet toplama bayrakları olmadan pencere motoru (WebView2) pakete girmez.)
+  2. Inno Setup ile kurulum sihirbazına sarın:
+       "%LOCALAPPDATA%\Programs\Inno Setup 6\ISCC.exe" installer.iss
+     (installer_dist/meldownloader-setup-latest.exe dosyasını üretir - masaüstü/Başlat Menüsü
+     kısayolu ve kaldırıcı içeren gerçek kurulum dosyası budur, portable exe DEĞİL.)
+  3. Üretilen installer_dist/meldownloader-setup-latest.exe dosyasını buraya
+     downloads/meldownloader-setup-latest.exe olarak kopyalayın (üzerine yazın).
+  4. SHA-256 üretin:
+       python -c "import hashlib;print(hashlib.sha256(open('meldownloader-setup-latest.exe','rb').read()).hexdigest())"
+     ve hem downloads/meldownloader-setup-latest.exe.sha256 dosyasına ("<hash>  meldownloader-setup-latest.exe"
+     formatında) hem de index.html içindeki RELEASE.sha256 alanına yazın.
+  5. index.html içindeki RELEASE nesnesini (version, dateLabel, fileSize, sha256) güncelleyin.
