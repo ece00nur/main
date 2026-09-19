@@ -1,6 +1,13 @@
 Bemas Muhasebe - Sürüm Notları
 ================================
 
+v1.0.1 - 19.09.2026
+--------------------
+- Bilgisayar açılışında arka planda görünmez şekilde başlama (artık hiçbir
+  terminal/konsol penceresi açılmıyor).
+- Sunucuya bağlanılamadığında beyaz ekran yerine "Sunucu Adresi Gir" ekranı
+  gösteriliyor - birden fazla bilgisayarda kullanım artık kolaylaştı.
+
 v1.0.0 - 12.09.2026
 --------------------
 - İlk sürüm.
