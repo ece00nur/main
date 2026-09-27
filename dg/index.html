@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>İyi ki Doğdun Sevgilim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&family=Caveat:wght@500;700&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --ink: #15121f;
+    --ink-2: #1f1a2e;
+    --gold: #f2b544;
+    --flame: #ff7a45;
+    --blush: #f4c7c3;
+    --paper: #fff6ea;
+    --muted: #b9adc9;
+    --line: rgba(255, 246, 234, .12);
+    --serif: "Instrument Serif", "Georgia", "Times New Roman", serif;
+    --sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { background: var(--ink); }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #3a2640 0%, transparent 60%),
+      var(--ink);
+    color: var(--paper);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    padding-inline: 20px;
+    overflow-x: hidden;
+  }
+  #stars, #confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  #stars { z-index: 0; }
+  #confetti { z-index: 50; }
+  main { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding-block: 48px 80px; display: grid; gap: 96px; }
+
+  /* ---------- Hero ---------- */
+  .hero { display: grid; justify-items: center; text-align: center; gap: 20px; }
+  .eyebrow { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin: 0; }
+  h1 {
+    font-family: var(--serif); font-weight: 400; margin: 0;
+    font-size: clamp(56px, 13vw, 148px); line-height: .92; letter-spacing: -.02em;
+    text-wrap: balance;
+  }
+  h1 em { font-style: italic; color: var(--blush); display: block; }
+  .sub { color: var(--muted); max-width: 46ch; margin: 0; }
+
+  /* ---------- Cake ---------- */
+  .cake-wrap { display: grid; justify-items: center; gap: 18px; margin-top: 12px; }
+  .cake { position: relative; width: min(320px, 100%); height: 260px; }
+  .candles { position: absolute; left: 50%; transform: translateX(-50%); top: 0; display: flex; gap: 26px; z-index: 3; }
+  .candle {
+    position: relative; width: 14px; height: 70px; margin-top: 40px; border: 0; padding: 0; cursor: pointer;
+    background: repeating-linear-gradient(135deg, var(--paper) 0 7px, var(--blush) 7px 14px);
+    border-radius: 3px 3px 1px 1px;
+  }
+  .candle:focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; }
+  .candle::before { content: ""; position: absolute; left: 50%; top: -8px; width: 2px; height: 9px; background: #3b2e28; transform: translateX(-50%); }
+  .flame {
+    position: absolute; left: 50%; top: -38px; width: 16px; height: 30px; margin-left: -8px;
+    background: radial-gradient(ellipse at 50% 70%, #fff8d6 0%, var(--gold) 38%, var(--flame) 70%, transparent 72%);
+    border-radius: 50% 50% 45% 45% / 62% 62% 38% 38%;
+    filter: drop-shadow(0 0 12px rgba(242,181,68,.9)) drop-shadow(0 0 28px rgba(255,122,69,.5));
+    transform-origin: 50% 90%;
+    animation: flicker 1.6s ease-in-out infinite alternate;
+    transition: opacity .35s, transform .35s;
+  }
+  .candle:nth-child(2) .flame { animation-delay: -.4s; }
+  .candle:nth-child(3) .flame { animation-delay: -.9s; }
+  .candle:nth-child(4) .flame { animation-delay: -1.2s; }
+  .candle.out .flame { opacity: 0; transform: scale(.2) translateY(6px); animation: none; }
+  .smoke { position: absolute; left: 50%; top: -30px; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: rgba(255,255,255,.35); opacity: 0; pointer-events: none; }
+  .candle.out .smoke { animation: smoke 1.4s ease-out forwards; }
+  @keyframes flicker {
+    0% { transform: rotate(-3deg) scaleY(1); }
+    50% { transform: rotate(2deg) scaleY(1.08); }
+    100% { transform: rotate(-1deg) scaleY(.94); }
+  }
+  @keyframes smoke { 0% { opacity: .7; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-50px) scale(4); } }
+
+  .tier { position: absolute; left: 50%; transform: translateX(-50%); border-radius: 14px 14px 10px 10px; overflow: hidden; }
+  .tier::after { /* drip icing */
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 22px;
+    background:
+      radial-gradient(circle at 10px 12px, var(--paper) 9px, transparent 10px) 0 0 / 28px 24px repeat-x,
+      linear-gradient(var(--paper), var(--paper)) 0 0 / 100% 8px no-repeat;
+  }
+  .t1 { top: 108px; width: 62%; height: 62px; background: #d9677a; }
+  .t2 { top: 164px; width: 86%; height: 72px; background: #a8465e; }
+  .plate { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); width: 100%; height: 16px; border-radius: 50%; background: linear-gradient(#e9dccb, #9e8f80); }
+  .dots { position: absolute; inset: 30px 12px 8px; background: radial-gradient(circle, rgba(255,246,234,.55) 2px, transparent 3px) 0 0 / 22px 22px; }
+
+  .hint { font-size: 14px; color: var(--muted); margin: 0; min-height: 1.6em; }
+  .wish {
+    font-family: var(--hand); font-size: clamp(30px, 6vw, 42px); color: var(--gold); margin: 0; line-height: 1.1;
+    opacity: 0; transform: translateY(8px); transition: opacity .6s, transform .6s;
+  }
+  .wish.show { opacity: 1; transform: none; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .btn {
+    font: 500 15px/1 var(--sans); color: var(--ink); background: var(--gold); border: 0; border-radius: 999px;
+    padding: 14px 22px; cursor: pointer; transition: transform .15s, background .15s;
+  }
+  .btn:hover { transform: translateY(-2px); background: #f7c563; }
+  .btn.ghost { background: transparent; color: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+  .btn.ghost:hover { background: rgba(255,246,234,.06); }
+  .btn:focus-visible { outline: 2px solid var(--blush); outline-offset: 3px; }
+
+  /* ---------- Sections ---------- */
+  section > header { display: grid; gap: 6px; margin-bottom: 32px; }
+  h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(38px, 7vw, 64px); line-height: 1; margin: 0; text-wrap: balance; }
+  h2 em { color: var(--blush); }
+
+  .reasons { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; list-style: none; padding: 0; margin: 0; }
+  .reasons li {
+    position: relative; padding: 22px 22px 22px 64px; border-top: 1px solid var(--line);
+    transition: background .25s;
+  }
+  .reasons li:hover { background: rgba(255,246,234,.03); }
+  .reasons .n { position: absolute; left: 22px; top: 18px; font-family: var(--serif); font-style: italic; font-size: 30px; color: var(--gold); line-height: 1; }
+  .reasons p { margin: 0; color: var(--paper); }
+
+  /* ---------- Gallery ---------- */
+  .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 22px; list-style: none; padding: 0; margin: 0; }
+  .polaroid {
+    background: var(--paper); padding: 10px 10px 0; border-radius: 3px; border: 0; cursor: zoom-in; width: 100%;
+    box-shadow: 0 18px 36px rgba(0,0,0,.4); transform: rotate(var(--r, 0deg));
+    transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s; display: block; text-align: center;
+  }
+  .polaroid:hover, .polaroid:focus-visible { transform: rotate(0deg) scale(1.05); box-shadow: 0 26px 50px rgba(0,0,0,.5); z-index: 2; position: relative; }
+  .polaroid:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+  .polaroid img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #ddd; }
+  .polaroid span { display: block; font-family: var(--hand); font-size: 22px; line-height: 1.1; color: #3a2a34; padding: 10px 4px 12px; }
+  .gallery li:nth-child(4n+1) { --r: -2.5deg; }
+  .gallery li:nth-child(4n+2) { --r: 1.8deg; }
+  .gallery li:nth-child(4n+3) { --r: -1.2deg; }
+  .gallery li:nth-child(4n+4) { --r: 2.6deg; }
+  @media (max-width: 760px) { .gallery { grid-template-columns: repeat(2, 1fr); gap: 22px 14px; } .polaroid span { font-size: 19px; } }
+
+  .lightbox {
+    position: fixed; inset: 0; z-index: 60; background: rgba(12,10,18,.92); display: grid; place-items: center;
+    padding: 24px 16px; padding-top: calc(24px + env(safe-area-inset-top, 0px));
+  }
+  .lightbox figure { margin: 0; display: grid; gap: 12px; justify-items: center; max-width: 100%; }
+  .lightbox img { max-width: min(1000px, 100%); max-height: 78vh; border-radius: 4px; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+  .lightbox figcaption { font-family: var(--hand); font-size: 30px; color: var(--gold); text-align: center; }
+  .lb-btn {
+    position: absolute; width: 48px; height: 48px; border-radius: 50%; border: 0; cursor: pointer;
+    background: rgba(255,246,234,.1); color: var(--paper); font-size: 24px; line-height: 1;
+  }
+  .lb-btn:hover { background: rgba(255,246,234,.2); }
+  .lb-btn:focus-visible { outline: 2px solid var(--gold); }
+  .lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
+  .lb-close { right: 12px; top: calc(12px + env(safe-area-inset-top, 0px)); }
+
+  .letter {
+    background: var(--paper); color: #3a2a34; border-radius: 4px; padding: clamp(28px, 6vw, 56px);
+    max-width: 680px; margin: 0 auto; transform: rotate(-.6deg);
+    box-shadow: 0 30px 60px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.04);
+    background-image: repeating-linear-gradient(transparent 0 37px, rgba(168,70,94,.14) 37px 38px);
+    font-family: var(--hand); font-size: clamp(22px, 4.4vw, 27px); line-height: 38px;
+  }
+  .letter p { margin: 0 0 38px; }
+  .letter p:last-child { margin: 0; text-align: right; }
+  .letter .to { color: #a8465e; font-weight: 700; }
+
+  .final { text-align: center; display: grid; gap: 16px; justify-items: center; }
+  .final .big { font-family: var(--serif); font-style: italic; font-size: clamp(44px, 10vw, 96px); line-height: 1; margin: 0; color: var(--blush); }
+  .heart { width: 42px; height: 42px; color: var(--flame); animation: beat 1.3s ease-in-out infinite; }
+  @keyframes beat { 0%,100% { transform: scale(1); } 15% { transform: scale(1.18); } 30% { transform: scale(1); } 45% { transform: scale(1.1); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flame, .heart { animation: none; }
+    .wish { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="stars" aria-hidden="true"></canvas>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<main>
+  <section class="hero">
+    <p class="eyebrow">27 Eylül · Bugün senin günün</p>
+    <h1>İyi ki doğdun <em id="isim">Oğuz</em></h1>
+    <p class="sub">Senin için küçük bir köşe hazırladım. Önce pastadaki mumları üfle, sonra aşağı kaydır.</p>
+
+    <div class="cake-wrap">
+      <div class="cake">
+        <div class="candles" id="candles">
+          <button class="candle" aria-label="1. mumu üfle"><span class="flame"></span><span class="smoke"></span></button>
+          <button class="candle" aria-label="2. mumu üfle"><span class="flame"></span><span class="smoke"></span></button>
+          <button class="candle" aria-label="3. mumu üfle"><span class="flame"></span><span class="smoke"></span></button>
+          <button class="candle" aria-label="4. mumu üfle"><span class="flame"></span><span class="smoke"></span></button>
+        </div>
+        <div class="tier t1"><div class="dots"></div></div>
+        <div class="tier t2"><div class="dots"></div></div>
+        <div class="plate"></div>
+      </div>
+      <p class="hint" id="hint">Bir dilek tut ve mumlara dokun.</p>
+      <p class="wish" id="wish">Dileğin gerçek olsun!</p>
+      <div class="actions">
+        <button class="btn" id="song">Doğum günü şarkısını çal</button>
+        <button class="btn ghost" id="relight">Mumları yeniden yak</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <header>
+      <p class="eyebrow">Sadece birkaçı</p>
+      <h2>Seni sevmemin <em>sebepleri</em></h2>
+    </header>
+    <ol class="reasons">
+      <li><span class="n">i.</span><p>Güldüğünde gözlerinin de gülmesi.</p></li>
+      <li><span class="n">ii.</span><p>En kötü günümü bile tek bir mesajla düzeltebilmen.</p></li>
+      <li><span class="n">iii.</span><p>Yanında hiç rol yapmak zorunda kalmamam.</p></li>
+      <li><span class="n">iv.</span><p>Bana sarıldığında dünyanın bir anlığına susması.</p></li>
+      <li><span class="n">v.</span><p>Hayallerimi benimle birlikte kurman.</p></li>
+      <li><span class="n">vi.</span><p>Sadece sen olduğun için. Başka bir sebebe gerek yok.</p></li>
+    </ol>
+  </section>
+
+  <section>
+    <header>
+      <p class="eyebrow">Biz, en doğal halimizle</p>
+      <h2>Bizim <em>albümümüz</em></h2>
+    </header>
+    <ul class="gallery" id="gallery">
+      <li><button class="polaroid" data-i="0"><img src="foto/1.webp" alt="Ece şaşkın, Oğuz şüpheli bakıyor" loading="lazy"><span>Şaşkın ve şüpheli</span></button></li>
+      <li><button class="polaroid" data-i="1"><img src="foto/2.webp" alt="Ece ve Oğuz çimenlerde otururken" loading="lazy"><span>Ciddi piknik toplantısı</span></button></li>
+      <li><button class="polaroid" data-i="2"><img src="foto/3.webp" alt="Oğuz öndeyken parkta çekilmiş selfie" loading="lazy"><span>Oğuz selfie'si, klasik</span></button></li>
+      <li><button class="polaroid" data-i="3"><img src="foto/4.webp" alt="Altın diş filtresiyle gülen Ece ve Oğuz" loading="lazy"><span>Altın dişli ikili</span></button></li>
+      <li><button class="polaroid" data-i="4"><img src="foto/5.webp" alt="Oğuz başını Ece'nin omzuna yaslamış" loading="lazy"><span>Omzum hep senin</span></button></li>
+      <li><button class="polaroid" data-i="5"><img src="foto/6.webp" alt="Gece çekilmiş komik yüzlü selfie" loading="lazy"><span>Gece yarısı şoku</span></button></li>
+      <li><button class="polaroid" data-i="6"><img src="foto/7.webp" alt="Ece ve Oğuz kahvaltı masasında" loading="lazy"><span>Kahvaltı bizim işimiz</span></button></li>
+      <li><button class="polaroid" data-i="7"><img src="foto/8.webp" alt="Ece ve Oğuz dürüm yerken" loading="lazy"><span>Dürüm aşkı</span></button></li>
+    </ul>
+  </section>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Fotoğraf" hidden>
+    <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+    <button class="lb-btn lb-prev" id="lb-prev" aria-label="Önceki fotoğraf">‹</button>
+    <button class="lb-btn lb-next" id="lb-next" aria-label="Sonraki fotoğraf">›</button>
+    <button class="lb-btn lb-close" id="lb-close" aria-label="Kapat">×</button>
+  </div>
+
+  <section>
+    <header>
+      <p class="eyebrow">Sana bir mektup</p>
+      <h2>Kalbimden <em>sana</em></h2>
+    </header>
+    <div class="letter">
+      <p><span class="to">Canım Oğuz'um,</span></p>
+      <p>Bugün dünyaya gelmiş olmana o kadar minnettarım ki. Hayatıma girdiğin günden beri her şey biraz daha renkli, biraz daha sıcak.</p>
+      <p>Yeni yaşında tüm hayallerinin gerçek olmasını, yüzündeki gülümsemenin hiç eksilmemesini diliyorum. Ve her doğum gününü seninle kutlamak istiyorum.</p>
+      <p>Seni çok seviyorum.<br>Hep yanında olacağım.<br>Ece</p>
+    </div>
+  </section>
+
+  <section class="final">
+    <svg class="heart" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.2 0 3.6 1.3 4.4 2.5.8-1.2 2.2-2.5 4.4-2.5 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg>
+    <p class="big">Nice mutlu yıllara, birlikte.</p>
+    <p class="sub">Oğuz &amp; Ece</p>
+    <button class="btn" id="party">Bir kez daha kutlayalım</button>
+  </section>
+</main>
+
+<script>
+  // Buraya sevgilinin adını yaz:
+  const ISIM = "Oğuz";
+  document.getElementById("isim").textContent = ISIM;
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Stars ---------- */
+  const sc = document.getElementById("stars"), sx = sc.getContext("2d");
+  let stars = [];
+  function sizeStars() {
+    sc.width = innerWidth * devicePixelRatio; sc.height = innerHeight * devicePixelRatio;
+    stars = Array.from({ length: Math.round(innerWidth * innerHeight / 9000) }, () => ({
+      x: Math.random() * sc.width, y: Math.random() * sc.height,
+      r: (Math.random() * 1.2 + .3) * devicePixelRatio, p: Math.random() * Math.PI * 2
+    }));
+  }
+  function drawStars(t) {
+    sx.clearRect(0, 0, sc.width, sc.height);
+    for (const s of stars) {
+      const a = reduce ? .6 : .35 + .35 * Math.sin(t / 900 + s.p);
+      sx.fillStyle = `rgba(255,246,234,${a})`;
+      sx.beginPath(); sx.arc(s.x, s.y, s.r, 0, Math.PI * 2); sx.fill();
+    }
+    if (!reduce) requestAnimationFrame(drawStars);
+  }
+  sizeStars(); requestAnimationFrame(drawStars);
+  addEventListener("resize", () => { sizeStars(); if (reduce) drawStars(0); });
+
+  /* ---------- Confetti ---------- */
+  const cc = document.getElementById("confetti"), cx = cc.getContext("2d");
+  const colors = ["#f2b544", "#ff7a45", "#f4c7c3", "#fff6ea", "#d9677a"];
+  let bits = [], running = false;
+  function burst(n = 180) {
+    cc.width = innerWidth * devicePixelRatio; cc.height = innerHeight * devicePixelRatio;
+    const d = devicePixelRatio;
+    for (let i = 0; i < n; i++) {
+      const fromLeft = i % 2 === 0;
+      bits.push({
+        x: (fromLeft ? .1 : .9) * cc.width, y: cc.height * .75,
+        vx: (fromLeft ? 1 : -1) * (Math.random() * 9 + 3) * d, vy: -(Math.random() * 16 + 10) * d,
+        w: (Math.random() * 6 + 5) * d, h: (Math.random() * 10 + 6) * d,
+        rot: Math.random() * 6, vr: (Math.random() - .5) * .3,
+        c: colors[i % colors.length], life: 0
+      });
+    }
+    if (!running) { running = true; requestAnimationFrame(tick); }
+  }
+  function tick() {
+    const d = devicePixelRatio;
+    cx.clearRect(0, 0, cc.width, cc.height);
+    bits = bits.filter(b => b.y < cc.height + 40 && b.life < 400);
+    for (const b of bits) {
+      b.vy += .35 * d; b.vx *= .99; b.x += b.vx; b.y += b.vy; b.rot += b.vr; b.life++;
+      cx.save(); cx.translate(b.x, b.y); cx.rotate(b.rot);
+      cx.fillStyle = b.c; cx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h * Math.abs(Math.cos(b.rot * 2)));
+      cx.restore();
+    }
+    if (bits.length) requestAnimationFrame(tick); else running = false;
+  }
+
+  /* ---------- Candles ---------- */
+  const candles = [...document.querySelectorAll(".candle")];
+  const hint = document.getElementById("hint"), wish = document.getElementById("wish");
+  candles.forEach(c => c.addEventListener("click", () => {
+    if (c.classList.contains("out")) return;
+    c.classList.add("out");
+    const left = candles.filter(x => !x.classList.contains("out")).length;
+    if (left) {
+      hint.textContent = `${left} mum kaldı...`;
+    } else {
+      hint.textContent = "";
+      wish.classList.add("show");
+      if (!reduce) burst(220);
+      playSong();
+    }
+  }));
+  document.getElementById("relight").addEventListener("click", () => {
+    candles.forEach(c => c.classList.remove("out"));
+    wish.classList.remove("show");
+    hint.textContent = "Bir dilek tut ve mumlara dokun.";
+  });
+  document.getElementById("party").addEventListener("click", () => { if (!reduce) burst(260); playSong(); });
+
+  /* ---------- Happy birthday melody ---------- */
+  let ac, playing = false;
+  function playSong() {
+    if (playing) return;
+    try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return; }
+    ac.resume && ac.resume();
+    playing = true;
+    const N = { G4: 392, A4: 440, B4: 493.9, C5: 523.3, D5: 587.3, E5: 659.3, F5: 698.5, G5: 784 };
+    const song = [
+      ["G4",.75],["G4",.25],["A4",1],["G4",1],["C5",1],["B4",2],
+      ["G4",.75],["G4",.25],["A4",1],["G4",1],["D5",1],["C5",2],
+      ["G4",.75],["G4",.25],["G5",1],["E5",1],["C5",1],["B4",1],["A4",2],
+      ["F5",.75],["F5",.25],["E5",1],["C5",1],["D5",1],["C5",3]
+    ];
+    const beat = .42;
+    let t = ac.currentTime + .1;
+    for (const [n, len] of song) {
+      const o = ac.createOscillator(), g = ac.createGain();
+      o.type = "triangle"; o.frequency.value = N[n];
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(.22, t + .02);
+      g.gain.exponentialRampToValueAtTime(.001, t + len * beat * .95);
+      o.connect(g).connect(ac.destination);
+      o.start(t); o.stop(t + len * beat);
+      t += len * beat;
+    }
+    setTimeout(() => { playing = false; }, (t - ac.currentTime) * 1000);
+  }
+  document.getElementById("song").addEventListener("click", playSong);
+
+  /* ---------- Gallery lightbox ---------- */
+  const shots = [...document.querySelectorAll(".polaroid")];
+  const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lb-img"), lbCap = document.getElementById("lb-cap");
+  let cur = 0, lastFocus = null;
+  function show(i) {
+    cur = (i + shots.length) % shots.length;
+    const img = shots[cur].querySelector("img");
+    lbImg.src = img.src; lbImg.alt = img.alt;
+    lbCap.textContent = shots[cur].querySelector("span").textContent;
+  }
+  function openLb(i) { lastFocus = document.activeElement; show(i); lb.hidden = false; document.getElementById("lb-close").focus(); }
+  function closeLb() { lb.hidden = true; lastFocus && lastFocus.focus(); }
+  shots.forEach((b, i) => b.addEventListener("click", () => openLb(i)));
+  document.getElementById("lb-prev").addEventListener("click", () => show(cur - 1));
+  document.getElementById("lb-next").addEventListener("click", () => show(cur + 1));
+  document.getElementById("lb-close").addEventListener("click", closeLb);
+  lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
+  addEventListener("keydown", e => {
+    if (lb.hidden) return;
+    if (e.key === "Escape") closeLb();
+    if (e.key === "ArrowLeft") show(cur - 1);
+    if (e.key === "ArrowRight") show(cur + 1);
+  });
+  let tx = null;
+  lb.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", e => {
+    if (tx === null) return;
+    const dx = e.changedTouches[0].clientX - tx; tx = null;
+    if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
+  });
+</script>
+</body>
+</html>
