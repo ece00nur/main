@@ -158,9 +158,10 @@
           <span class="badge" id="badge-version">Sürüm 1.0.0</span>
           <span class="badge" id="badge-date">12.09.2026</span>
           <span class="badge">Windows 10/11 x64</span>
+          <span class="badge">Tamamen yerel çalışır</span>
         </div>
         <div class="cta-row">
-          <a class="btn btn-primary" id="download-btn" href="downloads/bemas-setup-latest.exe" download>
+          <a class="btn btn-primary" id="download-btn" href="downloads/bemas-setup-latest.exe">
             ⬇ İndir (Windows x64)
           </a>
           <a class="btn btn-ghost" href="#kurulum">Kurulum adımları</a>
@@ -177,8 +178,8 @@
         <ul class="spec-list">
           <li><span>İşletim Sistemi</span><span>Windows 10/11 (64-bit)</span></li>
           <li><span>RAM</span><span>4 GB (8 GB önerilir)</span></li>
-          <li><span>Disk Alanı</span><span>300 MB boş alan</span></li>
-          <li><span>Ağ</span><span>Sunucu bağlantısı gerekir</span></li>
+          <li><span>Disk Alanı</span><span>500 MB boş alan</span></li>
+          <li><span>Ağ</span><span>Gerekmez, tamamen yerel çalışır</span></li>
           <li><span>Ek Bileşen</span><span>Gerekmez</span></li>
         </ul>
       </div>
@@ -190,8 +191,9 @@
       <div class="section-head">
         <div class="eyebrow">Gereksinimler</div>
         <h2>Kurulumdan önce</h2>
-        <p>Uygulama tüm çalışma bileşenlerini kendi içinde barındırır; ayrı bir çalışma zamanı
-        (.NET, Java vb.) kurmanız gerekmez.</p>
+        <p>Uygulama tüm çalışma bileşenlerini (arka plan servisi dahil) kendi içinde barındırır;
+        ayrı bir Python, sunucu adresi veya ağ ayarı yapmanız gerekmez - kurulumdan sonra
+        bilgisayarınızda kendi başına çalışır.</p>
       </div>
       <div class="req-grid">
         <div class="card req-item">
@@ -202,13 +204,13 @@
         <div class="card req-item">
           <div class="icon">⚙️</div>
           <h3>Donanım</h3>
-          <p>En az 4 GB RAM (8 GB önerilir), 300 MB boş disk alanı.</p>
+          <p>En az 4 GB RAM (8 GB önerilir), 500 MB boş disk alanı.</p>
         </div>
         <div class="card req-item">
           <div class="icon">🌐</div>
           <h3>Ağ Bağlantısı</h3>
-          <p>Uygulama verileri tuttuğu sunucuya (aynı ağdaki bir bilgisayar) bağlanır. Kurulum
-          öncesi o ağa bağlı olduğunuzdan emin olun.</p>
+          <p>Gerekmez. Uygulama internete veya başka bir bilgisayara bağlanmadan, tamamen bu
+          bilgisayarın kendi içinde çalışır; veriler yalnızca bu bilgisayarda saklanır.</p>
         </div>
         <div class="card req-item">
           <div class="icon">🔑</div>
@@ -245,7 +247,8 @@
         </div>
         <div class="card step">
           <h3>Giriş yapın</h3>
-          <p>Uygulamayı açın, size verilen kullanıcı adı ve şifre ile oturum açın.</p>
+          <p>Uygulamayı açın; ilk açılışta kendi kendine hazırlanması birkaç saniye sürebilir,
+          ardından size verilen kullanıcı adı ve şifre ile oturum açın.</p>
         </div>
       </div>
     </div>
@@ -294,9 +297,16 @@
           Dosyayı yalnızca bu sayfadan indirdiğinizden emin olun.</p>
         </details>
         <details class="card">
+          <summary>Verilerim başka bir bilgisayardaki uygulamayla ortak mı?</summary>
+          <p>Hayır. Her bilgisayara kurulan uygulama kendi verilerini kendi içinde tutar; iki
+          farklı bilgisayara kurulum yaptıysanız bunlar birbirinden bağımsız iki ayrı kayıt
+          defteri gibi çalışır, aralarında otomatik senkronizasyon yoktur.</p>
+        </details>
+        <details class="card">
           <summary>"Sunucuya bağlanılamıyor" hatası alıyorum</summary>
-          <p>Uygulamanın bağlandığı bilgisayarla aynı ağda olup olmadığınızı kontrol edin. Sorun
-          devam ederse bana ulaşın.</p>
+          <p>Normal kullanımda bu ekranı görmemeniz gerekir, çünkü uygulama kendi arka plan
+          servisini kendisi başlatır. Bu hata çıkarsa uygulamayı kapatıp yeniden açmayı deneyin;
+          sorun devam ederse bana ulaşın.</p>
         </details>
         <details class="card">
           <summary>Yeni sürüm çıkınca ne yapmalıyım?</summary>
@@ -321,12 +331,12 @@
 <script>
   // Yeni sürümde sadece bu nesneyi güncellemek yeterli.
   const RELEASE = {
-    version: "1.0.1",
-    dateLabel: "19.09.2026",
-    fileName: "bemas-setup-latest.exe",
-    fileSize: "~75 MB",
-    sha256: "ab3cb103bf54f3a05010611861b91634a4e1affcf8dc1c21a32b48d45835ce1a",
-    downloadPath: "downloads/bemas-setup-latest.exe"
+    version: "1.1.0",
+    dateLabel: "29.09.2026",
+    fileName: "Bemas.Treyler.Cari.Hesap.Setup.1.1.0.exe",
+    fileSize: "~128 MB",
+    sha256: "13f4da9305a425836cf5e5b549add9a53c919a97eee6f2c48588655cf736aded",
+    downloadPath: "https://github.com/ece00nur/bemas-muhasebe-sistemi/releases/download/v1.1.0/Bemas.Treyler.Cari.Hesap.Setup.1.1.0.exe"
   };
 
   document.getElementById("badge-version").textContent = `Sürüm ${RELEASE.version}`;
