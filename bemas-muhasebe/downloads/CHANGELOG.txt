@@ -1,6 +1,16 @@
 Bemas Muhasebe - Sürüm Notları
 ================================
 
+v1.1.0 - 29.09.2026
+--------------------
+- Uygulama artık tamamen kendi içinde çalışıyor: arka plan servisi (backend)
+  kurulumun içine gömülü geliyor, ayrı bir Python kurulumu veya sunucu adresi
+  girme adımı gerekmiyor.
+- Farklı bir ağdaki/şehirdeki bir bilgisayara kurulduğunda da, IP adresi veya
+  ağ ayarı sormadan doğrudan kendi başına açılıyor.
+- Not: her bilgisayardaki kurulum kendi verilerini kendi içinde tutar; birden
+  fazla bilgisayara kurulursa veriler aralarında otomatik senkronize olmaz.
+
 v1.0.1 - 19.09.2026
 --------------------
 - Bilgisayar açılışında arka planda görünmez şekilde başlama (artık hiçbir
@@ -15,12 +25,18 @@ v1.0.0 - 12.09.2026
 - Banka dekontu PDF ayrıştırma ve OCR desteği.
 - Firma bazlı cari hesap takibi ve Excel dışa aktarım.
 
-Yeni sürüm yayınlarken:
-  1. desktop/ içinde: npm run dist  (dist/*.exe dosyasını üretir)
-  2. Üretilen .exe dosyasını downloads/bemas-setup-latest.exe olarak buraya kopyalayın
-     (üzerine yazın - eski sürüm silinir, tek dosya tutulur).
+Yeni sürüm yayınlarken (v1.1.0'dan itibaren dosya GitHub Pages'e değil,
+GitHub Releases'e yükleniyor - kurulum dosyası artık backend'i de içerdiği
+için 100 MB GitHub dosya sınırını aşıyor):
+  1. backend/ içinde: pyinstaller --onedir --name bemas-backend
+     --distpath dist_pyinstaller --add-data "../frontend;frontend"
+     --collect-data reportlab pyinstaller_entry.py
+  2. desktop/ içinde: npm run dist  (dist/*.exe dosyasını üretir)
   3. SHA-256 üretin:
-       python -c "import hashlib;print(hashlib.sha256(open('bemas-setup-latest.exe','rb').read()).hexdigest())"
-     ve downloads/bemas-setup-latest.exe.sha256 dosyasına yazın.
-  4. index.html içindeki RELEASE nesnesini (version, dateLabel, fileSize, sha256)
-     güncelleyin.
+       certutil -hashfile "dist\Bemas Treyler Cari Hesap Setup <version>.exe" SHA256
+  4. GitHub'da yeni bir Release oluşturup .exe dosyasını asset olarak yükleyin:
+       gh release create v<version> --repo ece00nur/bemas-muhasebe-sistemi
+         --title "Bemas Muhasebe v<version>" --notes "..."
+         "dist/Bemas Treyler Cari Hesap Setup <version>.exe"
+  5. index.html içindeki RELEASE nesnesini (version, dateLabel, fileName,
+     fileSize, sha256, downloadPath -> yeni release asset URL'i) güncelleyin.
