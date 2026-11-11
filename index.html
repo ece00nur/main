@@ -177,7 +177,7 @@
   .hero-visual { display: flex; align-items: center; justify-content: center; }
   .avatar-wrap { position: relative; width: min(300px, 76vw); aspect-ratio: 1; }
   .avatar-card {
-    position: relative; width: 100%; height: 100%; display: grid; place-items: center;
+    position: relative; width: 100%; height: 100%; display: grid; place-items: center; overflow: hidden;
     background: linear-gradient(150deg, var(--mint), var(--cream)); border: 4px solid var(--dark);
     border-radius: 45% 55% 60% 40% / 45% 40% 60% 55%; box-shadow: var(--shadow-lg);
     animation: blobMorph 9s ease-in-out infinite;
@@ -186,12 +186,7 @@
     0%, 100% { border-radius: 45% 55% 60% 40% / 45% 40% 60% 55%; }
     50% { border-radius: 58% 42% 46% 54% / 54% 58% 42% 46%; }
   }
-  .avatar-face { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-  .avatar-eyes { display: flex; gap: 30px; }
-  .avatar-eyes span { width: 14px; height: 20px; background: var(--dark); border-radius: 50%; }
-  .avatar-cheeks { display: flex; gap: 90px; margin-top: -34px; }
-  .avatar-cheeks span { width: 22px; height: 12px; background: var(--coral); border-radius: 50%; opacity: .7; }
-  .avatar-smile { width: 46px; height: 24px; border: 4px solid var(--dark); border-top: none; border-radius: 0 0 46px 46px; }
+  .avatar-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .sticker {
     position: absolute; background: var(--white); border: 2.5px solid var(--dark); border-radius: 999px;
     padding: 8px 14px; font-family: var(--font-body); font-weight: 800; font-size: .82rem; box-shadow: var(--shadow-sm);
@@ -248,6 +243,7 @@
   .mockup-treyler { background: linear-gradient(135deg, var(--coral), var(--peach)); }
   .mockup-bemasmuhasebe { background: linear-gradient(135deg, var(--cream), var(--peach)); }
   .mockup-meldownloader { background: linear-gradient(135deg, var(--mint), var(--peach)); }
+  .mockup-melweather { background: linear-gradient(135deg, #2D1B4E, #6B4C9A); }
 
   .project-mockup.is-loaded .mockup-skeleton { display: none; }
   .project-mockup.is-loaded .mockup-shot { opacity: 1; }
@@ -385,11 +381,7 @@
       <div class="hero-visual reveal">
         <div class="avatar-wrap">
           <div class="avatar-card">
-            <div class="avatar-face" aria-hidden="true">
-              <div class="avatar-eyes"><span></span><span></span></div>
-              <div class="avatar-cheeks"><span></span><span></span></div>
-              <div class="avatar-smile"></div>
-            </div>
+            <img class="avatar-photo" src="assets/ece-profil.webp" alt="Ece Nur Arı" width="300" height="300" loading="eager" decoding="async">
           </div>
           <span class="sticker sticker-1" aria-hidden="true">💻 Kod Yazarım</span>
           <span class="sticker sticker-2" aria-hidden="true">🎨 Tasarım Yaparım</span>
@@ -481,6 +473,18 @@
           <p>Instagram, YouTube, TikTok, Twitter/X ve Pinterest videolarını tek tıkla indiren, FFmpeg dahil kendi kendine yeterli bir Windows masaüstü uygulaması.</p>
           <ul class="tags"><li>Python</li><li>FastAPI</li><li>Masaüstü Uygulaması</li></ul>
           <a href="https://melina.com.tr/meldownloader/" target="_blank" rel="noopener noreferrer" class="link-arrow">Projeye Git <span>↗</span></a>
+        </article>
+        <article class="card project-card reveal">
+          <span class="card-num">06</span>
+          <div class="project-mockup is-failed">
+            <div class="mockup-fallback" aria-hidden="true">
+              <div class="mockup-bar"><span></span><span></span><span></span><span class="mockup-url">MelWeather</span></div>
+              <div class="mockup-body mockup-melweather">😊</div>
+            </div>
+          </div>
+          <h3>MelWeather 😊</h3>
+          <p>Galaksi temalı, cam (glassmorphism) tasarımlı bir hava durumu uygulaması. Kullanıcılar o anki havayla birlikte fotoğraf paylaşır, paylaşımlar herkese canlı görünür.</p>
+          <ul class="tags"><li>Kotlin</li><li>Jetpack Compose</li><li>Firebase</li><li>Android</li></ul>
         </article>
       </div>
     </div>
